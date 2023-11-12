@@ -39,6 +39,7 @@ TEST_DATA_PROJECT_TASKS = {
     "description": "test description",
 }
 
+
 def printResponse(response, type):
     """
     pretty print the response differently depending on the content type
@@ -62,6 +63,7 @@ def sendRequest(
     data=None,
     payload_type="json",
     base_url="http://localhost:4567/",
+    return_response_if_error=False,
 ):
     """
     Send a request to the API and return the response
@@ -69,7 +71,8 @@ def sendRequest(
     data (dict): the data to send with the request,
     payload_type (str): the type of the data to send with the request,
     """
-    headers = {"Accept": f"application/{payload_type}", "Content-Type": "text/plain"}
+    headers = {"Accept": f"application/{payload_type}",
+               "Content-Type": "text/plain"}
 
     try:
         response = requests.request(
@@ -88,6 +91,8 @@ def sendRequest(
         else:
             if prettyprint:
                 print(f"{method} Error {response.status_code}: {response.reason}")
+            if return_response_if_error:
+                return response
             return None
     except:
         return None
@@ -175,7 +180,7 @@ def todosSetUp(URL="todos"):
     if isAPIRunning(URL) is False:
         return False
 
-    ## delete all data database
+    # delete all data database
     for entry in todosGetEntries(URL):
         sendRequest("DELETE", f"todos/{entry.get('id')}")
     # check if database is empty
@@ -184,7 +189,10 @@ def todosSetUp(URL="todos"):
 
     return True
 
+
 """Test projects"""
+
+
 def projectsGetEntries(URL="projects"):
     """
     Get all entries from the projects database
@@ -192,13 +200,16 @@ def projectsGetEntries(URL="projects"):
     r = sendRequest("GET", URL)
     return r.json().get("projects")
 
+
 def projectsCategoriesGetEntries(URL="projects/:id/categories"):
     r = sendRequest("GET", URL)
     return r.json().get("categories")
 
+
 def projectsTasksGetEntries(URL="projects/:id/tasks"):
     r = sendRequest("GET", URL)
     return r.json().get("todos")
+
 
 def projectsSetUp(URL="projects"):
     """
@@ -207,13 +218,13 @@ def projectsSetUp(URL="projects"):
     # check if api is running
     if isAPIRunning(URL) is False:
         return False
-    
-    ## delete all data database
+
+    # delete all data database
     for entry in projectsGetEntries(URL):
         sendRequest("DELETE", f"projects/{entry.get('id')}")
-    
+
     # check if database is empty
     if len(projectsGetEntries(URL)) != 0:
         return False
-    
+
     return True
