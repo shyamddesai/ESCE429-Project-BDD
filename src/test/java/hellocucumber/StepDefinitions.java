@@ -1,32 +1,50 @@
 package hellocucumber;
 
+import io.cucumber.core.internal.com.fasterxml.jackson.core.Version;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 import static org.junit.jupiter.api.Assertions.*;
 
-class IsItFriday {
-    static String isItFriday(String today) {
-        return "Friday".equals(today) ? "TGIF" : "Nope";
-    }
-}
+import java.lang.ProcessBuilder.Redirect;
+import java.net.Authenticator;
+import java.net.InetSocketAddress;
+import java.net.ProxySelector;
+
+import org.apiguardian.api.API;
 
 public class StepDefinitions {
-    // private String today;
-    // private String actualAnswer;
+    String baseURI = "http://localhost:4567/";
+    String URL = "";
+    String requestType = "";
+    String payloadType = "json";
+    String data = "";
 
-    // @Given("today is {string}")
-    // public void today_is(String today) {
-    //     this.today = today;
-    // }
+    @Given("I setup the GET todos API endpoint")
+    public void setGetEndpoint() {
+        requestType = "GET";
+        String endpoint = "todos";
+        URL = baseURI + endpoint;
+        System.out.println("Add URL: " + URL);
+    }
 
-    // @When("I ask whether it's Friday yet")
-    // public void i_ask_whether_it_s_Friday_yet() {
-    //     actualAnswer = IsItFriday.isItFriday(today);
-    // }
+    @When("I send GET request")
+    public void sendGETRequest() {
+        HttpClient client = HttpClient.newBuilder()
+        .version(Version.HTTP_1_1)
+        .followRedirects(Redirect.NORMAL)
+        .connectTimeout(Duration.ofSeconds(20))
+        .proxy(ProxySelector.of(new InetSocketAddress("proxy.example.com", 80)))
+        .authenticator(Authenticator.getDefault())
+        .build();
 
-    // @Then("I should be told {string}")
-    // public void i_should_be_told(String expectedAnswer) {
-    //     assertEquals(expectedAnswer, actualAnswer);
-    // }
+        HttpResponse<String> response = client.send(requestType, BodyHandlers.ofString());
+        request.addHeader("accept", "application/json");
+        HttpResponse httpResponse = httpClient.execute(request);
+    }
+
+    @Then("I should receive valid HTTP response code 200")
+    public void verifyGETRequest() {
+        throw new io.cucumber.java.PendingException();
+    }
 }

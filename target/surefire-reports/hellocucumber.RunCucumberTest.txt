@@ -1,4 +1,9 @@
 -------------------------------------------------------------------------------
 Test set: hellocucumber.RunCucumberTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.280 s -- in hellocucumber.RunCucumberTest
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.232 s <<< FAILURE! -- in hellocucumber.RunCucumberTest
+Test CRUD methods in TodoManager REST API testing.View todo instances -- Time elapsed: 0.080 s <<< ERROR!
+io.cucumber.java.PendingException: TODO: implement me
+	at hellocucumber.StepDefinitions.sendGETRequest(StepDefinitions.java:18)
+	at ✽.I send GET request(classpath:hellocucumber/todos.feature:5)
+
