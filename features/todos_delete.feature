@@ -12,5 +12,5 @@ Feature: delete an entries from the database
 
     Scenario: deleting a non-existing taskof (Error)
         Given I have an id and a tasksof
-        When I delete the tasksof
+        When I delete the tasksof using a non-existing id
         Then I should get an error code
