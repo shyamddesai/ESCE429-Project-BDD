@@ -7,4 +7,4 @@ The database is reset before each scenario using `before_scenario()` in `environ
 Simply run the following inside the root folder to run all tests
 ```bash
 behave
-```test
+```
