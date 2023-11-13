@@ -10,5 +10,7 @@ from steps.helper_functions import projectsSetUp, todosSetUp
 
 def before_scenario(context, scenario):
     # print("before scenario")
+    todosSetUp()
+    projectsSetUp()
     use_fixture(todosSetUp, context)
     use_fixture(projectsSetUp, context)
