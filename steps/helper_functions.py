@@ -4,6 +4,7 @@ from pprint import pprint
 
 import requests
 
+ERROR_CODES = [400, 404, 405, 406, 415, 500, 501, 503]
 TEST_DATA_ID = {
     "title": "officia deserunt mol",
     "doneStatus": True,
