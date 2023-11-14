@@ -30,7 +30,6 @@ def step_project_id_with_different_task_id(context):
 
     context.id = context.response.json()["id"]
     context.URL = f"projects/{context.id}/tasks"
-    project_id = context.id
     
     context.data = TEST_DATA_PROJECT_TASKS
     context.response = sendRequest("POST", context.URL, data=context.data, return_response_if_error=True)
