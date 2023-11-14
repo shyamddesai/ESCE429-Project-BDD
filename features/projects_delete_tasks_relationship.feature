@@ -11,7 +11,7 @@ Feature: Delete the instance of the relationship named tasks between project and
         When I delete the task relationship of id
         Then I should get error code 400 when deleting the relationship
 
-    Scenario: Delete a tasks relationship that doesn't exist for a project instance that doesn't exist (Error)
+    Scenario: Delete a tasks relationship that doesn't exist for a project instance (Error)
         Given The id of a project instance and tasks relationship that doesn't exist
         When I delete the task relationship of id
         Then I should get an error code 404 for the relationship not being found
