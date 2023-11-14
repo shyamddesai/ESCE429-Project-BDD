@@ -40,7 +40,6 @@ def step_amend_project_with_put(context):
 def step_amend_project_with_post(context):
     new_description_data = {
         "description": "This is the final description of the Test Project with a POST request"
-    
     }
 
     context.response = sendRequest("POST", context.URL, data=new_description_data, return_response_if_error=True)
